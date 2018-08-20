@@ -22,7 +22,8 @@ cc.Class({
             case 'networkFlow':
                 cc.director.loadScene('networkFlow');
                 break;
-            case 3:
+            case 'exampleExplain':
+                cc.director.loadScene('exampleExplain');
                 break
             default:
                 break
