@@ -70,7 +70,7 @@ cc.Class({
         this.node.on(msg.MATCHVS_JOIN_ROOM_NOTIFY,this.joinRoomNotify,this);
         this.node.on(msg.MATCHVS_JOIN_OVER_RSP,this.joinOverResponse,this);
         this.node.on(msg.MATCHVS_JOIN_OVER_NOTIFY,this.joinOverNotify,this);
-        this.node.on(msg.MATCHVS_JOIN_OVER_NOTIFY,this.sendEventResponse,this);
+        this.node.on(msg.MATCHVS_SEND_EVENT_RSP,this.sendEventResponse,this);
         this.node.on(msg.MATCHVS_SEND_EVENT_NOTIFY,this.sendEventNotify,this);
         this.node.on(msg.MATCHVS_LEAVE_ROOM,this.leaveRoomResponse,this);
         this.node.on(msg.MATCHVS_LEAVE_ROOM_NOTIFY,this.leaveRoomNotify,this);
@@ -131,6 +131,7 @@ cc.Class({
     login() {
         if (this.userID != 0  && this.token != '') {
             var result = engine.prototype.login(this.userID,this.token);
+            this.labelLog('登陆的账号userID是:'+this.userID);
             this.engineCode(result,'login');
         } else {
             this.labelLog('请先注册，然后在尝试登陆');
