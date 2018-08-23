@@ -71,7 +71,7 @@ cc.Class({
         this.node.on(msg.MATCHVS_JOIN_OVER_RSP,this.joinOverResponse,this);
         this.node.on(msg.MATCHVS_JOIN_OVER_NOTIFY,this.joinOverNotify,this);
         this.node.on(msg.MATCHVS_JOIN_OVER_NOTIFY,this.sendEventResponse,this);
-        this.node.on(msg.MATCHVS_JOIN_OVER_NOTIFY,this.sendEventNotify,this);
+        this.node.on(msg.MATCHVS_SEND_EVENT_NOTIFY,this.sendEventNotify,this);
         this.node.on(msg.MATCHVS_LEAVE_ROOM,this.leaveRoomResponse,this);
         this.node.on(msg.MATCHVS_LEAVE_ROOM_NOTIFY,this.leaveRoomNotify,this);
         this.node.on(msg.MATCHVS_LOGOUT,this.logoutResponse,this);
@@ -88,8 +88,8 @@ cc.Class({
         this.node.off(msg.MATCHVS_JOIN_ROOM_NOTIFY,this.joinRoomNotify,this);
         this.node.off(msg.MATCHVS_JOIN_OVER_RSP,this.joinOverResponse,this);
         this.node.off(msg.MATCHVS_JOIN_OVER_NOTIFY,this.joinOverNotify,this);
-        this.node.off(msg.MATCHVS_JOIN_OVER_NOTIFY,this.sendEventResponse,this);
-        this.node.off(msg.MATCHVS_JOIN_OVER_NOTIFY,this.sendEventNotify,this);
+        this.node.off(msg.MATCHVS_SEND_EVENT_RSP,this.sendEventResponse,this);
+        this.node.off(msg.MATCHVS_SEND_EVENT_NOTIFY,this.sendEventNotify,this);
         this.node.off(msg.MATCHVS_LEAVE_ROOM,this.leaveRoomResponse,this);
         this.node.off(msg.MATCHVS_LEAVE_ROOM_NOTIFY,this.leaveRoomNotify,this);
         this.node.off(msg.MATCHVS_LOGOUT,this.logoutResponse,this);
@@ -159,6 +159,7 @@ cc.Class({
             '庐山亢龙霸 ','极冻冰棺',' 等离子光速拳','星云锁链'];
         var msg = eventMsg[Math.floor(Math.random()*10)];
         var result = engine.prototype.sendEvent('你使出一招:'+msg);
+        this.labelLog('你准备使出一招：'+msg);
         this.engineCode(result,'sendEvent');
     },
 
@@ -244,7 +245,7 @@ cc.Class({
         if (status == 200) {
             this.labelLog('joinRoomResponse: 进入房间成功：房间ID为：'+roomInfo.roomID+'房主ID：'+roomInfo.ownerId+'房间属性为：'+roomInfo.roomProperty);
             for(var i = 0; i < userInfoList.length;i++) {
-                this.labelLog('joinRoomResponse：房间的玩家ID是'+userInfoList.userID);
+                this.labelLog('joinRoomResponse：房间的玩家ID是'+userInfoList[i].userID);
             }
             if (userInfoList.length == 0) {
                 this.labelLog('joinRoomResponse：房间暂时无其他玩家');
@@ -354,6 +355,7 @@ cc.Class({
         this.logList.push(info);
         this.totalCount  = this.logList.length;
         this.content.height = this.totalCount*(this.itemTemplate.height + this.spacing) + this.spacing;
+        this.content.removeAllChildren(true);
         for(var i = 0; i < this.logList.length;i++) {
             var item = cc.instantiate(this.itemTemplate);
             this.content.addChild(item);

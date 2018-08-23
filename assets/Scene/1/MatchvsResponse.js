@@ -35,8 +35,8 @@ MatchvsResponse.prototype.bind = function () {
     // mvs.response.getRoomDetailResponse = this.getRoomDetailResponse.bind(this);
     // mvs.response.setRoomPropertyResponse = this.setRoomPropertyResponse.bind(this);
     // mvs.response.setRoomPropertyNotify = this.setRoomPropertyNotify.bind(this);
-    // mvs.response.sendEventResponse = this.sendEventResponse.bind(this);
-    // mvs.response.sendEventNotify = this.sendEventNotify.bind(this);
+    mvs.response.sendEventResponse = this.sendEventResponse.bind(this);
+    mvs.response.sendEventNotify = this.sendEventNotify.bind(this);
     // mvs.response.frameUpdate = this.frameUpdate.bind(this);
     // mvs.response.networkStateNotify = this.networkStateNotify.bind(this);
 };
