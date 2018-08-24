@@ -24,21 +24,10 @@ MatchvsResponse.prototype.bind = function () {
     mvs.response.joinRoomNotify = this.joinRoomNotify.bind(this);
     mvs.response.leaveRoomResponse = this.leaveRoomResponse.bind(this);
     mvs.response.leaveRoomNotify = this.leaveRoomNotify.bind(this);
-    // mvs.response.joinOpenResponse = this.joinOpenResponse.bind(this);
-    // mvs.response.joinOpenNotify = this.joinOpenNotify.bind(this);
     mvs.response.joinOverResponse = this.joinOverResponse.bind(this);
     mvs.response.joinOverNotify = this.joinOverNotify.bind(this);
-    // mvs.response.getRoomListExResponse = this.getRoomListExResponse.bind(this);
-    // mvs.response.createRoomResponse = this.createRoomResponse.bind(this);
-    // mvs.response.kickPlayerResponse = this.kickPlayerResponse.bind(this);
-    // mvs.response.kickPlayerNotify = this.kickPlayerNotify.bind(this);
-    // mvs.response.getRoomDetailResponse = this.getRoomDetailResponse.bind(this);
-    // mvs.response.setRoomPropertyResponse = this.setRoomPropertyResponse.bind(this);
-    // mvs.response.setRoomPropertyNotify = this.setRoomPropertyNotify.bind(this);
     mvs.response.sendEventResponse = this.sendEventResponse.bind(this);
     mvs.response.sendEventNotify = this.sendEventNotify.bind(this);
-    // mvs.response.frameUpdate = this.frameUpdate.bind(this);
-    // mvs.response.networkStateNotify = this.networkStateNotify.bind(this);
 };
 
 /**
@@ -53,6 +42,7 @@ MatchvsResponse.prototype.initResponse = function (status) {
  * @param userInfo
  */
 MatchvsResponse.prototype.registerUserResponse = function (userInfo) {
+    console.log(JSON.stringify(userInfo));
     this.context.node.emit(msg.MATCHVS_REGISTER_USER, userInfo);
 };
 

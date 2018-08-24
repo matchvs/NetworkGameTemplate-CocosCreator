@@ -24704,8 +24704,8 @@ MatchvsEngine.prototype.sendEventGroup = function (data, groups) {
  */
 MatchvsEngine.prototype.hotelHeartBeat = function () {
     var _engine = M_ENGINE;
-    this.mEngineState |= ENGE_STATE.IN_ROOM;
-    this.mEngineState |= ENGE_STATE.HAVE_LOGIN;
+    _engine.mEngineState |= ENGE_STATE.IN_ROOM;
+    _engine.mEngineState |= ENGE_STATE.HAVE_LOGIN;
     var buf = _engine.mProtocol.hotelHeartBeat(_engine.mGameID, _engine.mRoomInfo.getRoomid(), _engine.mUserID);
     _engine.mHotelNetWork.send(buf);
     MatchvsLog.logI("hotel heartBeat");
@@ -24724,7 +24724,7 @@ MatchvsEngine.prototype.registerUser = function () {
     var cacheUserInfo = LocalStore_Load(cacheKey);
     if (cacheUserInfo) {
         var obj = JSON.parse(cacheUserInfo);
-        this.mRsp.registerUserResponse(new MsRegistRsp(obj.status, obj.data.userid, obj.data.token, obj.data.nickname, obj.data.avatar));
+        this.mRsp.registerUserResponse(new MsRegistRsp(obj.status+"", obj.data.userid, obj.data.token, obj.data.nickname, obj.data.avatar));
         MatchvsLog.logI("load user info from cache:" + obj);
         return 0;
     }
@@ -24738,12 +24738,12 @@ MatchvsEngine.prototype.registerUser = function () {
             LocalStore_Save(cacheKey, buf);
             this.rsp(new MsRegistRsp(obj.status, obj.data.userid, obj.data.token, obj.data.nickname, obj.data.avatar));
         } else {
-            this.rsp(new MsRegistRsp(obj.status, 0, "0", buf, ""));
+            this.rsp(new MsRegistRsp(obj.status, 0, "err", buf, "err"));
         }
 
     };
     rep.onErr = function (errCode, errMsg) {
-        this.rsp(new MsRegistRsp(errCode, 0, "0", errMsg, ""));
+        this.rsp(new MsRegistRsp(errCode===0?-1:errCode, 0, "err", errMsg, "err"));
     };
     new MatchvsHttp(rep).get(url);
     return 0;

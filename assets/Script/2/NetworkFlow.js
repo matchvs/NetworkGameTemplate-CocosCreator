@@ -217,6 +217,7 @@ cc.Class({
      */
     registerUserResponse(userInfo) {
         if (userInfo.status ==0) {
+            this.labelLog('xxx'+JSON.stringify(userInfo)+'xxx');
             this.labelLog('registerUserResponse：注册用户成功,id = '+userInfo.id+'token = '+userInfo.token+'name:'+userInfo.name+
             'avatar:'+userInfo.avatar);
             this.userID = userInfo.id;
