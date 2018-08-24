@@ -2,14 +2,13 @@
  * Matchvs JSB加载与Js加载
  */
 var engine;
-var response = {};
+var response;
 var MsMatchInfo;
 var MsCreateRoomInfo;
 var MsRoomFilterEx;
 var LocalStore_Clear;
 
 try{
-    console.info("try load matchvs JSB fail,"+e.message+',try load matchvs js');
     var jsMatchvs = require("matchvs.all");
     engine = new jsMatchvs.MatchvsEngine();
     response = new jsMatchvs.MatchvsResponse();
@@ -19,8 +18,7 @@ try{
     LocalStore_Clear = jsMatchvs.LocalStore_Clear;
     console.log("load matchvs.all.js success");
 } catch(error){
-    console.log('msgCode:'+error.code);
-    console.log('msg:'+error.message);
+    console.log("try load matchvs JSB fail,"+error.message);
 }
 
 
