@@ -135,7 +135,11 @@ cc.Class({
         if (this.userID != 0  && this.token != '') {
             var result = engine.prototype.login(this.userID,this.token);
             this.labelLog('登录的账号userID是:'+this.userID);
-            this.engineCode(result,'login');
+            if (result == -6) {
+                this.labelLog('已登录，请勿重新登录');
+            } else  {
+                this.engineCode(result,'login');
+            }
         } else {
             this.labelLog('请先注册，然后在尝试登录');
         }
@@ -390,13 +394,13 @@ cc.Class({
                 this.labelLog(engineName+'调用失败');
                 break;
             case -2:
-                this.labelLog('尚未初始化，请先初始化在进行'+engineName+'操作');
+                this.labelLog('尚未初始化，请先初始化再进行'+engineName+'操作');
                 break;
             case -3:
                 this.labelLog('正在初始化，请稍后进行'+engineName+'操作');
                 break;
             case -4:
-                this.labelLog('尚未登录，请先登录在进行'+engineName+'操作');
+                this.labelLog('尚未登录，请先登录再进行'+engineName+'操作');
                 break;
             case -5:
                 this.labelLog('已经登录，请勿重复登陆');

@@ -1,6 +1,6 @@
 # NetworkGameTemplate-CocosCreator
 
-CocosCreator静态联网案例，本案例适用于cocosCreate2.0+版本。
+CocosCreator静态联网案例，本案例适用于CocosCreate2.0+版本。
 
 ## 1: 联网案例体验
 
