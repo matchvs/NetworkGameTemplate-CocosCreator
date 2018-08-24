@@ -22411,7 +22411,11 @@ try {
 
             this.close = function () {
                 if (this.socket) {
-                    this.socket.close(1000, "");
+                    if(typeof cc.Component !=="undefined"){
+                        this.socket.close();
+                    }else{
+                        this.socket.close(1000, "");
+                    }
                 }
             };
 
@@ -22460,8 +22464,12 @@ try {
                 }.bind(this);
 
                 this.socket.onclose = function (e) {
+                    if(typeof cc.Component !=="undefined"){
+                        e = {"code":1000,"reason":"jsb friend close "};
+                    }
+                    MatchvsLog.logI("socket on closed ,code:"+e.code+"(1000:NORMAL,1005:CLOSE_NO_STATUS,1006:RESET,1009:CLOSE_TOO_LARGE) err:"+ JSON.stringify(e));
                     this.mCallBack.onDisConnect && this.mCallBack.onDisConnect(this.mHost,e);
-                    MatchvsLog.logI("socket on closed ,code:"+e.code+"(1000:NORMAL,1005:CLOSE_NO_STATUS,1006:RESET,1009:CLOSE_TOO_LARGE) msg:"+e.reason);
+
                 }.bind(this);
 
                 this.socket.onerror = function (event) {
@@ -24743,6 +24751,7 @@ MatchvsEngine.prototype.registerUser = function () {
 
     };
     rep.onErr = function (errCode, errMsg) {
+        //err code is 0 on weixin game platform
         this.rsp(new MsRegistRsp(errCode===0?-1:errCode, 0, "err", errMsg, "err"));
     };
     new MatchvsHttp(rep).get(url);
