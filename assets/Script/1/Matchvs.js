@@ -7,14 +7,9 @@ var MsMatchInfo;
 var MsCreateRoomInfo;
 var MsRoomFilterEx;
 var LocalStore_Clear;
-try {
-    engine = Matchvs.MatchvsEngine.getInstance();
-    MsMatchInfo = Matchvs.MatchInfo;
-    MsCreateRoomInfo = Matchvs.CreateRoomInfo;
-    MsRoomFilterEx  = Matchvs.RoomFilterEx ;
-    console.log("load matchvs JSB success");
-} catch (e) {
-	console.info("try load matchvs JSB fail,"+e.message+',try load matchvs js');
+
+try{
+    console.info("try load matchvs JSB fail,"+e.message+',try load matchvs js');
     var jsMatchvs = require("matchvs.all");
     engine = new jsMatchvs.MatchvsEngine();
     response = new jsMatchvs.MatchvsResponse();
@@ -23,7 +18,13 @@ try {
     MsRoomFilterEx  = jsMatchvs.MsRoomFilterEx ;
     LocalStore_Clear = jsMatchvs.LocalStore_Clear;
     console.log("load matchvs.all.js success");
+} catch(error){
+    console.log('msgCode:'+error.code);
+    console.log('msg:'+error.message);
 }
+
+
+
 module.exports = {
     engine: engine,
     response: response,
