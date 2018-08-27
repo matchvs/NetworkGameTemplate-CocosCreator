@@ -52,7 +52,7 @@
       "z": 0,
       "w": 1
     },
-    "_localZOrder": 39,
+    "_localZOrder": 10,
     "groupIndex": 0,
     "autoReleaseAssets": false,
     "_id": "d98ea6f0-2661-49e6-8b56-fda695fbd242"
@@ -121,7 +121,7 @@
     },
     "_skewX": 0,
     "_skewY": 0,
-    "_localZOrder": 40,
+    "_localZOrder": 11,
     "groupIndex": 0,
     "_id": "8dH14mkoVLC7K1XhIbVBwY"
   },
@@ -195,7 +195,7 @@
     },
     "_skewX": 0,
     "_skewY": 0,
-    "_localZOrder": 41,
+    "_localZOrder": 12,
     "groupIndex": 0,
     "_id": "33wX3C7PFFrroyIPuy3IW+"
   },
@@ -259,7 +259,7 @@
     },
     "_skewX": 0,
     "_skewY": 0,
-    "_localZOrder": 42,
+    "_localZOrder": 13,
     "groupIndex": 0,
     "_id": "85b7q1JotGyYmqnYLuZONd"
   },
@@ -380,7 +380,7 @@
     },
     "_skewX": 0,
     "_skewY": 0,
-    "_localZOrder": 43,
+    "_localZOrder": 14,
     "groupIndex": 0,
     "_id": "17V0OlNXFLtoVB/089slO5"
   },
@@ -393,7 +393,7 @@
     },
     "_enabled": true,
     "_useOriginalSize": false,
-    "_url": "http://www.matchvs.com/home",
+    "_url": "http://www.matchvs.com/service?page=NetworkGameTemplate",
     "webviewEvents": [],
     "_id": "faqe3yEsxL8aEibPpPkMM1"
   },
@@ -461,7 +461,7 @@
     },
     "_skewX": 0,
     "_skewY": 0,
-    "_localZOrder": 44,
+    "_localZOrder": 15,
     "groupIndex": 0,
     "_id": "0fkUEn8GpE6oLyGSInH0pp"
   },
@@ -522,7 +522,7 @@
     },
     "_skewX": 0,
     "_skewY": 0,
-    "_localZOrder": 45,
+    "_localZOrder": 16,
     "groupIndex": 0,
     "_id": "d7Xdb1gnxIYK1+bPSm64YN"
   },
@@ -670,7 +670,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 271.2,
+      "width": 560.78,
       "height": 20
     },
     "_anchorPoint": {
@@ -680,8 +680,8 @@
     },
     "_position": {
       "__type__": "cc.Vec3",
-      "x": -75,
-      "y": 295,
+      "x": -28,
+      "y": 296,
       "z": 0
     },
     "_scale": {
@@ -701,7 +701,7 @@
     },
     "_skewX": 0,
     "_skewY": 0,
-    "_localZOrder": 46,
+    "_localZOrder": 17,
     "groupIndex": 0,
     "_id": "2dhJKSAlNKd4Rjl+E6tIwV"
   },
@@ -716,8 +716,8 @@
     "_srcBlendFactor": 1,
     "_dstBlendFactor": 771,
     "_useOriginalSize": false,
-    "_string": "http://www.matchvs.com/home",
-    "_N$string": "http://www.matchvs.com/home",
+    "_string": "http://www.matchvs.com/service?page=NetworkGameTemplate",
+    "_N$string": "http://www.matchvs.com/service?page=NetworkGameTemplate",
     "_fontSize": 20,
     "_lineHeight": 20,
     "_enableWrapText": true,
