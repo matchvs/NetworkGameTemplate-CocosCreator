@@ -1,7 +1,7 @@
-var engine = require('MatchvsEngine');
-var response = require("MatchvsResponse");
-var msg = require("MatvhsvsMessage");
-var examplesData = require('ExamplesData');
+var engine = require('../1/MatchvsEngine');
+var response = require("../1/MatchvsResponse");
+var msg = require("../1/MatvhsvsMessage");
+var examplesData = require('../1/ExamplesData');
 
 cc.Class({
     extends: cc.Component,
@@ -53,6 +53,7 @@ cc.Class({
         this.unInitButton.node.on('click',this.unInit,this);
         this.backHomeButton.node.on('click',this.backHome,this);
         this.clearLogButton.node.on('click',this.clearLog,this);
+
         this.labelLog('您需要打开两个以上的浏览器进行测试使用');
     },
 
@@ -137,7 +138,9 @@ cc.Class({
             this.labelLog('登录的账号userID是:'+this.userID);
             if (result == -6) {
                 this.labelLog('已登录，请勿重新登录');
-            } else  {
+            } else if (result === -26){
+                this.labelLog('[游戏账户与渠道不匹配，请使用cocos账号登录Matchvs官网创建游戏]：(https://www.matchvs.com/cocos)');
+            } else {
                 this.engineCode(result,'login');
             }
         } else {
@@ -217,7 +220,6 @@ cc.Class({
      */
     registerUserResponse(userInfo) {
         if (userInfo.status ==0) {
-            this.labelLog('xxx'+JSON.stringify(userInfo)+'xxx');
             this.labelLog('registerUserResponse：注册用户成功,id = '+userInfo.id+'token = '+userInfo.token+'name:'+userInfo.name+
             'avatar:'+userInfo.avatar);
             this.userID = userInfo.id;
@@ -425,7 +427,7 @@ cc.Class({
                 this.labelLog(engineName+'channel 非法，请检查是否正确填写为 “Matchvs”');
                 break;
             case -26:
-                this.labelLog(engineName+'platform 非法，请检查是否正确填写为 “alpha” 或 “release”');
+                this.labelLog(engineName+'：platform 非法，请检查是否正确填写为 “alpha” 或 “release”');
                 break;
 
 

@@ -9,7 +9,7 @@ var MsRoomFilterEx;
 var LocalStore_Clear;
 
 try{
-    var jsMatchvs = require("matchvs.all");
+    var jsMatchvs = require("../matchvs/matchvsjssdk/matchvs.all");
     engine = new jsMatchvs.MatchvsEngine();
     response = new jsMatchvs.MatchvsResponse();
     MsMatchInfo = jsMatchvs.MsMatchInfo;
@@ -18,7 +18,7 @@ try{
     LocalStore_Clear = jsMatchvs.LocalStore_Clear;
     console.log("load matchvs.all.js success");
 } catch(error){
-    console.log("try load matchvs JSB fail,"+error.message);
+    console.error("try load matchvs JS fail,"+error.message);
 }
 
 
