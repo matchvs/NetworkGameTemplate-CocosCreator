@@ -115,9 +115,8 @@ cc.Class({
      * 初始化
      */
     init() {
-        var gameID = 200978;
-        var result = engine.prototype.init(examplesData.channel,examplesData.platform,gameID);
-        this.labelLog('初始化使用的gameID是:'+gameID,'如需更换为自己SDK，修改NetworkFlow.js 114行即可');
+        var result = engine.prototype.init(examplesData.channel,examplesData.platform,examplesData.gameID);
+        this.labelLog('初始化使用的gameID是:'+examplesData.gameID,'如需更换为自己SDK，修改NetworkFlow.js 114行即可');
         this.engineCode(result,'init');
     },
 
