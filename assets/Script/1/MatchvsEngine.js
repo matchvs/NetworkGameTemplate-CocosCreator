@@ -36,7 +36,7 @@ MatchvsEngine.prototype.login = function(userID,token){
     var DeviceID = 'abcdef';
     var gatewayID = 0;
     var result = mvs.engine.login(userID,token,examplesData.gameID,examplesData.gameVersion,
-        examplesData.appKey,examplesData.secret,DeviceID,gatewayID);
+        examplesData.appKey,DeviceID,gatewayID);
     console.log("登录result"+result);
     return result;
 };
