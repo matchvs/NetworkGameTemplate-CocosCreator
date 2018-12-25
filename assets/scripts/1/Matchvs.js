@@ -9,7 +9,7 @@ var MsRoomFilterEx;
 var LocalStore_Clear;
 
 try{
-    var jsMatchvs = require("../matchvs/matchvsjssdk/matchvs.all");
+    var jsMatchvs = require("../matchvs/matchvs.all");
     engine = new jsMatchvs.MatchvsEngine();
     response = new jsMatchvs.MatchvsResponse();
     MsMatchInfo = jsMatchvs.MsMatchInfo;
