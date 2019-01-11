@@ -9,13 +9,12 @@ var MsRoomFilterEx;
 var LocalStore_Clear;
 
 try{
-    var jsMatchvs = require("../matchvs/matchvs.all");
-    engine = new jsMatchvs.MatchvsEngine();
-    response = new jsMatchvs.MatchvsResponse();
-    MsMatchInfo = jsMatchvs.MsMatchInfo;
-    MsCreateRoomInfo = jsMatchvs.MsCreateRoomInfo;
-    MsRoomFilterEx  = jsMatchvs.MsRoomFilterEx ;
-    LocalStore_Clear = jsMatchvs.LocalStore_Clear;
+    engine = new window.MatchvsEngine();
+    response = new window.MatchvsResponse();
+    MsMatchInfo = window.MsMatchInfo;
+    MsCreateRoomInfo = window.MsCreateRoomInfo;
+    MsRoomFilterEx  = window.MsRoomFilterEx ;
+    LocalStore_Clear = window.LocalStore_Clear;
     console.log("load matchvs.all.js success");
 } catch(error){
     console.error("try load matchvs JS fail,"+error.message);
