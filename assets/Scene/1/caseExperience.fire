@@ -41,8 +41,8 @@
     },
     "_scale": {
       "__type__": "cc.Vec3",
-      "x": 0.7515625,
-      "y": 0.7515625,
+      "x": 0.5736083984375,
+      "y": 0.5736083984375,
       "z": 1
     },
     "_quat": {
@@ -342,6 +342,7 @@
     "_N$spacingY": 0,
     "_N$verticalDirection": 1,
     "_N$horizontalDirection": 0,
+    "_N$affectedByScale": false,
     "_id": "6c1qX0+S5ObLfrg0XnvT5O"
   },
   {
@@ -566,6 +567,7 @@
     "_N$file": null,
     "_isSystemFontUsed": true,
     "_spacingX": 0,
+    "_batchAsBitmap": false,
     "_N$horizontalAlign": 1,
     "_N$verticalAlign": 1,
     "_N$fontFamily": "Arial",
@@ -608,7 +610,27 @@
       "__id__": 10
     },
     "_enabled": true,
+    "duration": 0.1,
+    "zoomScale": 1.2,
+    "clickEvents": [],
+    "_N$interactable": true,
+    "_N$enableAutoGrayEffect": false,
+    "_N$transition": 2,
     "transition": 2,
+    "_N$normalColor": {
+      "__type__": "cc.Color",
+      "r": 255,
+      "g": 255,
+      "b": 255,
+      "a": 255
+    },
+    "_N$pressedColor": {
+      "__type__": "cc.Color",
+      "r": 255,
+      "g": 255,
+      "b": 255,
+      "a": 255
+    },
     "pressedColor": {
       "__type__": "cc.Color",
       "r": 255,
@@ -616,19 +638,14 @@
       "b": 255,
       "a": 255
     },
-    "hoverColor": {
+    "_N$hoverColor": {
       "__type__": "cc.Color",
       "r": 255,
       "g": 255,
       "b": 255,
       "a": 255
     },
-    "duration": 0.1,
-    "zoomScale": 1.2,
-    "clickEvents": [],
-    "_N$interactable": true,
-    "_N$enableAutoGrayEffect": false,
-    "_N$normalColor": {
+    "hoverColor": {
       "__type__": "cc.Color",
       "r": 255,
       "g": 255,
@@ -745,6 +762,7 @@
     "_N$file": null,
     "_isSystemFontUsed": true,
     "_spacingX": 0,
+    "_batchAsBitmap": false,
     "_N$horizontalAlign": 1,
     "_N$verticalAlign": 1,
     "_N$fontFamily": "Arial",
