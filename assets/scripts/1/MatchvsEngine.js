@@ -34,7 +34,7 @@ MatchvsEngine.prototype.registerUser = function() {
  */
 MatchvsEngine.prototype.login = function(userID,token){
     var DeviceID = 'matchvs';
-    var result = mvs.engine.login(userID,token,examplesData.gameID,DeviceID,0);
+    var result = mvs.engine.login(userID,token,DeviceID);
     console.log("登录result"+result);
     return result;
 };

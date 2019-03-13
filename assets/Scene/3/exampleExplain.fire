@@ -41,8 +41,8 @@
     },
     "_scale": {
       "__type__": "cc.Vec3",
-      "x": 0.7390625,
-      "y": 0.7390625,
+      "x": 0.5736083984375,
+      "y": 0.5736083984375,
       "z": 1
     },
     "_quat": {
@@ -321,6 +321,7 @@
     "_N$spacingY": 0,
     "_N$verticalDirection": 1,
     "_N$horizontalDirection": 0,
+    "_N$affectedByScale": false,
     "_id": "4dMgO7LNdJlJ47AWvQcVMi"
   },
   {
@@ -393,7 +394,7 @@
     },
     "_enabled": true,
     "_useOriginalSize": false,
-    "_url": "http://www.matchvs.com/service?page=NetworkGameTemplate",
+    "_url": "https://doc.matchvs.com/QuickStart/QuickStart-CocosCreator",
     "webviewEvents": [],
     "_id": "faqe3yEsxL8aEibPpPkMM1"
   },
@@ -545,6 +546,7 @@
     "_N$file": null,
     "_isSystemFontUsed": true,
     "_spacingX": 0,
+    "_batchAsBitmap": false,
     "_N$horizontalAlign": 1,
     "_N$verticalAlign": 1,
     "_N$fontFamily": "Arial",
@@ -587,7 +589,27 @@
       "__id__": 9
     },
     "_enabled": true,
+    "duration": 0.1,
+    "zoomScale": 1.2,
+    "clickEvents": [],
+    "_N$interactable": true,
+    "_N$enableAutoGrayEffect": false,
+    "_N$transition": 2,
     "transition": 2,
+    "_N$normalColor": {
+      "__type__": "cc.Color",
+      "r": 255,
+      "g": 255,
+      "b": 255,
+      "a": 255
+    },
+    "_N$pressedColor": {
+      "__type__": "cc.Color",
+      "r": 255,
+      "g": 255,
+      "b": 255,
+      "a": 255
+    },
     "pressedColor": {
       "__type__": "cc.Color",
       "r": 255,
@@ -595,19 +617,14 @@
       "b": 255,
       "a": 255
     },
-    "hoverColor": {
+    "_N$hoverColor": {
       "__type__": "cc.Color",
       "r": 255,
       "g": 255,
       "b": 255,
       "a": 255
     },
-    "duration": 0.1,
-    "zoomScale": 1.2,
-    "clickEvents": [],
-    "_N$interactable": true,
-    "_N$enableAutoGrayEffect": false,
-    "_N$normalColor": {
+    "hoverColor": {
       "__type__": "cc.Color",
       "r": 255,
       "g": 255,
@@ -670,7 +687,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 560.78,
+      "width": 543.51,
       "height": 20
     },
     "_anchorPoint": {
@@ -716,14 +733,15 @@
     "_srcBlendFactor": 1,
     "_dstBlendFactor": 771,
     "_useOriginalSize": false,
-    "_string": "http://www.matchvs.com/service?page=NetworkGameTemplate",
-    "_N$string": "http://www.matchvs.com/service?page=NetworkGameTemplate",
+    "_string": "https://doc.matchvs.com/QuickStart/QuickStart-CocosCreator",
+    "_N$string": "https://doc.matchvs.com/QuickStart/QuickStart-CocosCreator",
     "_fontSize": 20,
     "_lineHeight": 20,
     "_enableWrapText": true,
     "_N$file": null,
     "_isSystemFontUsed": true,
     "_spacingX": 0,
+    "_batchAsBitmap": false,
     "_N$horizontalAlign": 1,
     "_N$verticalAlign": 1,
     "_N$fontFamily": "Arial",
