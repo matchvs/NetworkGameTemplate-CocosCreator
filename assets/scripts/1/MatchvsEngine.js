@@ -1,9 +1,9 @@
 var mvs = require("Matchvs");
 var examplesData = require('ExamplesData');
 
-if(typeof BK != undefine ||typeof FBInstant != undefine){
+if(typeof BK != undefined ||typeof FBInstant != undefined){
     mvs.SetWss&&mvs.SetWss(true);
-    console.log("use wss");
+    console.log("FBInstant ||BK use wss");
 }
 function MatchvsEngine() {
 }
