@@ -16,7 +16,8 @@ try{
     MsRoomFilterEx  = window.MsRoomFilterEx ;
     LocalStore_Clear = window.LocalStore_Clear;
 
-    if(typeof BK != "undefined" ||typeof facebook != "undefined"){
+    console.log(this);
+    if(typeof BK != "undefined" ||typeof FBInstant != "undefined"){
         MVS.SetWss&&MVS.SetWss(true);
         console.log("use wss");
     }
