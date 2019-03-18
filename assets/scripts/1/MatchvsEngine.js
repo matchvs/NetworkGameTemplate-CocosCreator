@@ -1,7 +1,7 @@
 var mvs = require("Matchvs");
 var examplesData = require('ExamplesData');
 
-if(typeof BK != undefined ||typeof FBInstant != undefined){
+if(typeof BK != undefined ||typeof facebook != undefined){
     mvs.SetWss&&mvs.SetWss(true);
     console.log("FBInstant ||BK use wss");
 }
