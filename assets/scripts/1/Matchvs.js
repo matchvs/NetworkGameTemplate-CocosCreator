@@ -15,6 +15,12 @@ try{
     MsCreateRoomInfo = window.MsCreateRoomInfo;
     MsRoomFilterEx  = window.MsRoomFilterEx ;
     LocalStore_Clear = window.LocalStore_Clear;
+
+    if(typeof BK != undefined ||typeof facebook != undefined){
+        MVS.SetWss&&MVS.SetWss(true);
+        console.log("FBInstant ||BK use wss");
+    }
+
     console.log("load matchvs.all.js success");
 } catch(error){
     console.error("try load matchvs JS fail,"+error.message);
