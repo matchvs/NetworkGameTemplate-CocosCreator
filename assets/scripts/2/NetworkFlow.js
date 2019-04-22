@@ -7,110 +7,111 @@ cc.Class({
     extends: cc.Component,
 
     properties: {
-        initButton:cc.Button,
-        registerButton:cc.Button,
-        loginButton:cc.Button,
-        joinRandomRoomButton:cc.Button,
-        joinOverButton:cc.Button,
-        sendEventButton:cc.Button,
-        leaveRoomButton:cc.Button,
-        logoutButton:cc.Button,
-        unInitButton:cc.Button,
-        clearLogButton:cc.Button,
-        backHomeButton:cc.Button,
+        initButton: cc.Button,
+        registerButton: cc.Button,
+        loginButton: cc.Button,
+        joinRandomRoomButton: cc.Button,
+        joinOverButton: cc.Button,
+        sendEventButton: cc.Button,
+        leaveRoomButton: cc.Button,
+        logoutButton: cc.Button,
+        unInitButton: cc.Button,
+        clearLogButton: cc.Button,
+        backHomeButton: cc.Button,
 
-        textTitle:cc.Label,
-        btnClear:cc.Button,
-        btnSAAS:cc.Button,
+        textTitle: cc.Label,
+        btnClear: cc.Button,
+        btnSAAS: cc.Button,
 
-        ebGameID:cc.EditBox,
-        ebAppKey:cc.EditBox,
+        ebGameID: cc.EditBox,
+        ebAppKey: cc.EditBox,
 
         //独立部署(PAAS)
         ebEndPoint: cc.EditBox,
-        ebUserID:cc.EditBox,
-        ebToken:cc.EditBox,
+        ebUserID: cc.EditBox,
+        ebToken: cc.EditBox,
+        textToturail: cc.Node,
+        passGroup:cc.Node,
 
-        logListView:{
-            default:null,
-            type:cc.ScrollView
+        logListView: {
+            default: null,
+            type: cc.ScrollView
         },
-        logList :[],
+        logList: [],
         spacing: 0,
         totalCount: 0,
-        itemTemplate:{
-            default:null,
-            type:cc.Node
+        itemTemplate: {
+            default: null,
+            type: cc.Node
         },
-
-        userID:0,
-        token:'',
-        isPAAS:false,
-
     },
 
 
-    onLoad () {
+    onLoad() {
         this.initMatchvsEvent(this);
-        this.logList = new  Array();
+        this.logList = new Array();
         this.content = this.logListView.content;
         //初始化按钮点击监听事件
-        this.initButton.node.on('click',this.init,this);
-        this.registerButton.node.on('click',this.register,this);
-        this.loginButton.node.on('click',this.login, this);
-        this.joinRandomRoomButton.node.on('click',this.joinRandomRoom, this);
-        this.joinOverButton.node.on('click',this.joinOver,this);
-        this.sendEventButton.node.on('click',this.sendEvent,this);
-        this.leaveRoomButton.node.on('click',this.leaveRoom, this);
-        this.logoutButton.node.on('click',this.logout,this);
-        this.unInitButton.node.on('click',this.unInit,this);
-        this.backHomeButton.node.on('click',this.backHome,this);
-        this.clearLogButton.node.on('click',this.clearLog,this);
-        this.btnSAAS.node.on('click',function () {
-            cc.director.loadScene('paas');
-            GameData.isPAAS = !GameData.isPAAS ;
+        this.initButton.node.on('click', this.init, this);
+        this.registerButton.node.on('click', this.register, this);
+        this.loginButton.node.on('click', this.login, this);
+        this.joinRandomRoomButton.node.on('click', this.joinRandomRoom, this);
+        this.joinOverButton.node.on('click', this.joinOver, this);
+        this.sendEventButton.node.on('click', this.sendEvent, this);
+        this.leaveRoomButton.node.on('click', this.leaveRoom, this);
+        this.logoutButton.node.on('click', this.logout, this);
+        this.unInitButton.node.on('click', this.unInit, this);
+        this.backHomeButton.node.on('click', this.backHome, this);
+        this.clearLogButton.node.on('click', this.clearLog, this);
+        this.btnSAAS.node.on('click', function () {
+            GameData.isPAAS = !GameData.isPAAS;
             engine.prototype.logout();
             engine.prototype.unInit();
-        },this);
-        this.btnClear.node.on('click',function () {
+            cc.director.loadScene('pass');
+        }, this);
+        this.btnClear.node.on('click', function () {
             LocalStore_Clear();
             this.labelLog('已删除UserID和Token的本地缓存');
-        },this);
+        }, this);
+        this.textToturail.on(cc.Node.EventType.MOUSE_UP, function () {
+            window.open("https://doc.matchvs.com/SelfHost/selfhostIntro");
+        }, this);
 
         this.labelLog('您需要打开两个以上的浏览器模拟多人联网进行测试使用');
 
-        GameData.isPAAS = this.isPAAS;
-        if (GameData.isPAAS){
-            this.ebGameID.getComponent(cc.EditBox).string = " ";
-            this.ebAppKey.getComponent(cc.EditBox).string = " ";
-            this.ebUserID.getComponent(cc.EditBox).string = " ";
-            this.ebToken.getComponent(cc.EditBox).string = " ";
-            this.ebEndPoint.getComponent(cc.EditBox).string = " ";
+        if (GameData.isPAAS) {
+            this.ebGameID.getComponent(cc.EditBox).string = "";
+            this.ebAppKey.getComponent(cc.EditBox).string = "";
+            this.ebUserID.getComponent(cc.EditBox).string = "";
+            this.ebToken.getComponent(cc.EditBox).string = "";
+            this.ebEndPoint.getComponent(cc.EditBox).string = "";
             this.getAndCheckPAASInfo();
-        }else{
+            GameData.reset();
+        } else {
             this.ebGameID.getComponent(cc.EditBox).string = GameData.gameID;
             this.ebAppKey.getComponent(cc.EditBox).string = GameData.appKey;
         }
         this.getAndCheckGameInfo();
-        this.textTitle.string =!GameData.isPAAS?"云托管模式":"自托管模式";
-        this.btnClear.active = GameData.isPAAS?false:true;
-        this.ebUserID.node.parent.active = !GameData.isPAAS?false:true;
-        this.ebToken.node.parent.active = !GameData.isPAAS?false:true;
-        this.ebEndPoint.node.parent.active = !GameData.isPAAS?false:true;
-        // this.btnSAAS.getComponent(cc.Label).string =GameData.isPAAS?"云托管模式":"自托管模式";
+        this.textTitle.string = !GameData.isPAAS ? "云托管模式" : "自托管模式";
+        this.btnClear.node.active = !GameData.isPAAS;
+        // this.ebUserID.node.parent.active = !GameData.isPAAS ? false : true;
+        // this.ebToken.node.parent.active = !GameData.isPAAS ? false : true;
+        // this.ebEndPoint.node.parent.active = !GameData.isPAAS ? false : true;
+        this.passGroup.active = GameData.isPAAS;
         console.log("isPaas:", GameData.isPAAS);
+        this.btnSAAS.getComponentInChildren(cc.Label).string =GameData.isPAAS?"云托管模式":"自托管模式";
         console.log("GameData:", GameData);
     },
-    premiseInit(){
+    premiseInit() {
         if (this.getAndCheckPAASInfo()) {
-            engine.prototype.premiseInit(GameData.host,GameData.gameID,GameData.appKey);
+            engine.prototype.premiseInit(GameData.host, GameData.gameID, GameData.appKey);
         }
     },
-    getAndCheckPAASInfo(){
+    getAndCheckPAASInfo() {
         var token = this.ebToken.getComponent(cc.EditBox).string;
         var userID = this.ebUserID.getComponent(cc.EditBox).string;
         var host = this.ebEndPoint.getComponent(cc.EditBox).string;
-        if (userID === '' || token === ''||host==='') {
+        if (userID === '' || token === '' || host === '') {
             this.labelLog("独立部署请输入userID,token以及服务地址");
             this.labelLog("有疑问请点击右上角<自托管教程>按钮");
             return false;
@@ -122,15 +123,17 @@ cc.Class({
             return true;
         }
     },
-    getAndCheckGameInfo(){
+    getAndCheckGameInfo() {
         var gameID = this.ebGameID.getComponent(cc.EditBox).string;
         var appKey = this.ebAppKey.getComponent(cc.EditBox).string;
         if (gameID === '' || appKey === '') {
-            this.labelLog("gameID&&appKey不能为空");
+            this.labelLog("gameID&&appKey不能为空,请输入");
+            console.log("GameData:", GameData);
+            return false;
         } else {
             GameData.gameID = gameID;
             GameData.appKey = appKey;
-            // this.login(userID,token);
+            return true;
         }
     },
     /**
@@ -142,18 +145,18 @@ cc.Class({
         response.prototype.bind();
         response.prototype.init(self);
         this.node.on(msg.MATCHVS_INIT, this.initResponse, this);
-        this.node.on(msg.MATCHVS_REGISTER_USER,this.registerUserResponse,this);
-        this.node.on(msg.MATCHVS_LOGIN,this.loginResponse,this);
-        this.node.on(msg.MATCHVS_JOIN_ROOM_RSP,this.joinRoomResponse,this);
-        this.node.on(msg.MATCHVS_JOIN_ROOM_NOTIFY,this.joinRoomNotify,this);
-        this.node.on(msg.MATCHVS_JOIN_OVER_RSP,this.joinOverResponse,this);
-        this.node.on(msg.MATCHVS_JOIN_OVER_NOTIFY,this.joinOverNotify,this);
-        this.node.on(msg.MATCHVS_SEND_EVENT_RSP,this.sendEventResponse,this);
-        this.node.on(msg.MATCHVS_SEND_EVENT_NOTIFY,this.sendEventNotify,this);
-        this.node.on(msg.MATCHVS_LEAVE_ROOM,this.leaveRoomResponse,this);
-        this.node.on(msg.MATCHVS_LEAVE_ROOM_NOTIFY,this.leaveRoomNotify,this);
-        this.node.on(msg.MATCHVS_LOGOUT,this.logoutResponse,this);
-        this.node.on(msg.MATCHVS_ERROE_MSG,this.errorResponse,this);
+        this.node.on(msg.MATCHVS_REGISTER_USER, this.registerUserResponse, this);
+        this.node.on(msg.MATCHVS_LOGIN, this.loginResponse, this);
+        this.node.on(msg.MATCHVS_JOIN_ROOM_RSP, this.joinRoomResponse, this);
+        this.node.on(msg.MATCHVS_JOIN_ROOM_NOTIFY, this.joinRoomNotify, this);
+        this.node.on(msg.MATCHVS_JOIN_OVER_RSP, this.joinOverResponse, this);
+        this.node.on(msg.MATCHVS_JOIN_OVER_NOTIFY, this.joinOverNotify, this);
+        this.node.on(msg.MATCHVS_SEND_EVENT_RSP, this.sendEventResponse, this);
+        this.node.on(msg.MATCHVS_SEND_EVENT_NOTIFY, this.sendEventNotify, this);
+        this.node.on(msg.MATCHVS_LEAVE_ROOM, this.leaveRoomResponse, this);
+        this.node.on(msg.MATCHVS_LEAVE_ROOM_NOTIFY, this.leaveRoomNotify, this);
+        this.node.on(msg.MATCHVS_LOGOUT, this.logoutResponse, this);
+        this.node.on(msg.MATCHVS_ERROE_MSG, this.errorResponse, this);
     },
 
     /**
@@ -161,18 +164,18 @@ cc.Class({
      */
     removeEvent() {
         this.node.off(msg.MATCHVS_INIT, this.initResponse, this);
-        this.node.off(msg.MATCHVS_REGISTER_USER,this.registerUserResponse,this);
-        this.node.off(msg.MATCHVS_LOGIN,this.loginResponse,this);
-        this.node.off(msg.MATCHVS_JOIN_ROOM_RSP,this.joinRoomResponse,this);
-        this.node.off(msg.MATCHVS_JOIN_ROOM_NOTIFY,this.joinRoomNotify,this);
-        this.node.off(msg.MATCHVS_JOIN_OVER_RSP,this.joinOverResponse,this);
-        this.node.off(msg.MATCHVS_JOIN_OVER_NOTIFY,this.joinOverNotify,this);
-        this.node.off(msg.MATCHVS_SEND_EVENT_RSP,this.sendEventResponse,this);
-        this.node.off(msg.MATCHVS_SEND_EVENT_NOTIFY,this.sendEventNotify,this);
-        this.node.off(msg.MATCHVS_LEAVE_ROOM,this.leaveRoomResponse,this);
-        this.node.off(msg.MATCHVS_LEAVE_ROOM_NOTIFY,this.leaveRoomNotify,this);
-        this.node.off(msg.MATCHVS_LOGOUT,this.logoutResponse,this);
-        this.node.off(msg.MATCHVS_ERROE_MSG,this.errorResponse,this);
+        this.node.off(msg.MATCHVS_REGISTER_USER, this.registerUserResponse, this);
+        this.node.off(msg.MATCHVS_LOGIN, this.loginResponse, this);
+        this.node.off(msg.MATCHVS_JOIN_ROOM_RSP, this.joinRoomResponse, this);
+        this.node.off(msg.MATCHVS_JOIN_ROOM_NOTIFY, this.joinRoomNotify, this);
+        this.node.off(msg.MATCHVS_JOIN_OVER_RSP, this.joinOverResponse, this);
+        this.node.off(msg.MATCHVS_JOIN_OVER_NOTIFY, this.joinOverNotify, this);
+        this.node.off(msg.MATCHVS_SEND_EVENT_RSP, this.sendEventResponse, this);
+        this.node.off(msg.MATCHVS_SEND_EVENT_NOTIFY, this.sendEventNotify, this);
+        this.node.off(msg.MATCHVS_LEAVE_ROOM, this.leaveRoomResponse, this);
+        this.node.off(msg.MATCHVS_LEAVE_ROOM_NOTIFY, this.leaveRoomNotify, this);
+        this.node.off(msg.MATCHVS_LOGOUT, this.logoutResponse, this);
+        this.node.off(msg.MATCHVS_ERROE_MSG, this.errorResponse, this);
     },
 
     /**
@@ -191,39 +194,47 @@ cc.Class({
      * 初始化
      */
     init() {
-        if (GameData.isPAAS){
-            var result = engine.prototype.premiseInit(GameData.host,GameData.gameID,GameData.appKey);
-        }else{
-            var result = engine.prototype.init(GameData.channel,GameData.platform,GameData.gameID,GameData.appKey);
+        var result;
+        if (GameData.isPAAS) {
+            if (this.getAndCheckPAASInfo()) {
+                 result = engine.prototype.premiseInit(GameData.host, GameData.gameID, GameData.appKey);
+            }else{
+               return;
+            }
+        } else {
+             result = engine.prototype.init(GameData.channel, GameData.platform, GameData.gameID, GameData.appKey);
         }
-        this.labelLog('初始化使用的gameID是:'+GameData.gameID,'如需更换为自己SDK，请修改ExamplesData.js文件');
-        this.engineCode(result,'init');
+        this.labelLog('初始化使用的gameID是:' + GameData.gameID, '如需更换为自己SDK，请修改ExamplesData.js文件');
+        this.engineCode(result, 'init');
     },
 
     /**
      * 注册
      */
     register() {
-        var result =  engine.prototype.registerUser();
-        this.engineCode(result,'registerUser');
+        if (GameData.isPAAS) {
+            this.labelLog("独立部署使用第三方账号,无需注册");
+            return;
+        }
+        var result = engine.prototype.registerUser();
+        this.engineCode(result, 'registerUser');
     },
 
     /**
      * 登录
      */
     login() {
-        if (this.userID != 0  && this.token != '') {
-            var result = engine.prototype.login(this.userID,this.token);
-            this.labelLog('登录的账号userID是:'+this.userID);
+        if (this.getAndCheckGameInfo()) {
+            var result = engine.prototype.login(GameData.userID, GameData.token);
+            this.labelLog('登录的账号userID是:', GameData.userID);
             if (result == -6) {
                 this.labelLog('已登录，请勿重新登录');
-            } else if (result === -26){
+            } else if (result === -26) {
+                console.log("GameData:", GameData);
                 this.labelLog('[游戏账户与渠道不匹配，请使用cocos账号登录Matchvs官网创建游戏]：(https://www.matchvs.com/cocos)');
             } else {
-                this.engineCode(result,'login');
+                this.engineCode(result, 'login');
             }
-        } else {
-            this.labelLog('请先注册，然后在尝试登录');
         }
     },
 
@@ -232,7 +243,7 @@ cc.Class({
      */
     joinRandomRoom() {
         var result = engine.prototype.joinRandomRoom(GameData.mxaNumer);
-        this.engineCode(result,'joinRandomRoom');
+        this.engineCode(result, 'joinRandomRoom');
     },
 
     /**
@@ -240,19 +251,19 @@ cc.Class({
      */
     joinOver() {
         var result = engine.prototype.joinOver();
-        this.engineCode(result,'joinOver');
+        this.engineCode(result, 'joinOver');
     },
 
     /**
      * 发送信息
      */
     sendEvent() {
-        var eventMsg = ['万剑归宗',' 亢龙有悔','庐山升龙霸 ',' 天马流行拳' ,' 钻石星尘' ,' 凤翼天翔' ,
-            '庐山亢龙霸 ','极冻冰棺',' 等离子光速拳','星云锁链'];
-        var msg = eventMsg[Math.floor(Math.random()*10)];
-        var result = engine.prototype.sendEvent('你使出一招:'+msg);
-        this.labelLog('你准备使出一招：'+msg);
-        this.engineCode(result,'sendEvent');
+        var eventMsg = ['万剑归宗', ' 亢龙有悔', '庐山升龙霸 ', ' 天马流行拳', ' 钻石星尘', ' 凤翼天翔',
+            '庐山亢龙霸 ', '极冻冰棺', ' 等离子光速拳', '星云锁链'];
+        var msg = eventMsg[Math.floor(Math.random() * 10)];
+        var result = engine.prototype.sendEvent('你使出一招:' + msg);
+        this.labelLog('你准备使出一招：' + msg);
+        this.engineCode(result, 'sendEvent');
     },
 
     /**
@@ -260,7 +271,7 @@ cc.Class({
      */
     leaveRoom() {
         var result = engine.prototype.leaveRoom();
-        this.engineCode(result,'leaveRoom');
+        this.engineCode(result, 'leaveRoom');
     },
 
     /**
@@ -268,7 +279,7 @@ cc.Class({
      */
     logout() {
         var result = engine.prototype.logout();
-        this.engineCode(result,'logout');
+        this.engineCode(result, 'logout');
     },
 
     /**
@@ -276,7 +287,7 @@ cc.Class({
      */
     unInit() {
         var result = engine.prototype.unInit();
-        this.engineCode(result,'unInit');
+        this.engineCode(result, 'unInit');
     },
 
 
@@ -285,10 +296,10 @@ cc.Class({
      * @param info
      */
     initResponse(status) {
-        if(status == 200) {
-            this.labelLog('initResponse：初始化成功，status：'+status);
+        if (status == 200) {
+            this.labelLog('initResponse：初始化成功，status：' + status);
         } else {
-            this.labelLog('initResponse：初始化失败，status：'+status)
+            this.labelLog('initResponse：初始化失败，status：' + status)
         }
     },
 
@@ -298,11 +309,13 @@ cc.Class({
      * @param userInfo
      */
     registerUserResponse(userInfo) {
-        if (userInfo.status ==0) {
-            this.labelLog('registerUserResponse：注册用户成功,id = '+userInfo.id+'token = '+userInfo.token+'name:'+userInfo.name+
-            'avatar:'+userInfo.avatar);
-            this.userID = userInfo.id;
-            this.token = userInfo.token;
+        if (userInfo.status == 0) {
+            this.labelLog('registerUserResponse：注册用户成功,id = ' + userInfo.id + 'token = ' + userInfo.token + 'name:' + userInfo.name +
+                'avatar:' + userInfo.avatar);
+            GameData.userID = userInfo.id;
+            GameData.token = userInfo.token;
+            this.ebUserID.getComponent(cc.EditBox).string = GameData.userID;
+            this.ebToken.getComponent(cc.EditBox).string = GameData.token;
             GameData.userName = userInfo.name;
         } else {
             this.labelLog('registerUserResponse: 注册用户失败');
@@ -316,7 +329,7 @@ cc.Class({
     loginResponse(MsLoginRsp) {
         if (MsLoginRsp.status == 200) {
             this.labelLog('loginResponse: 登录成功');
-        } else if (MsLoginRsp.status == 402){
+        } else if (MsLoginRsp.status == 402) {
             this.labelLog('loginResponse: 应用校验失败，确认是否在未上线时用了release环境，并检查gameID、appkey 和 secret');
         } else if (MsLoginRsp.status == 403) {
             this.labelLog('loginResponse：检测到该账号已在其他设备登录');
@@ -335,9 +348,9 @@ cc.Class({
      */
     joinRoomResponse(status, userInfoList, roomInfo) {
         if (status == 200) {
-            this.labelLog('joinRoomResponse: 进入房间成功：房间ID为：'+roomInfo.roomID+'房主ID：'+roomInfo.ownerId+'房间属性为：'+roomInfo.roomProperty);
-            for(var i = 0; i < userInfoList.length;i++) {
-                this.labelLog('joinRoomResponse：房间的玩家ID是'+userInfoList[i].userID);
+            this.labelLog('joinRoomResponse: 进入房间成功：房间ID为：' + roomInfo.roomID + '房主ID：' + roomInfo.ownerId + '房间属性为：' + roomInfo.roomProperty);
+            for (var i = 0; i < userInfoList.length; i++) {
+                this.labelLog('joinRoomResponse：房间的玩家ID是' + userInfoList[i].userID);
             }
             if (userInfoList.length == 0) {
                 this.labelLog('joinRoomResponse：房间暂时无其他玩家');
@@ -352,7 +365,7 @@ cc.Class({
      * @param roomUserInfo
      */
     joinRoomNotify(roomUserInfo) {
-        this.labelLog('joinRoomNotify：加入房间的玩家ID是'+roomUserInfo.userID);
+        this.labelLog('joinRoomNotify：加入房间的玩家ID是' + roomUserInfo.userID);
     },
 
     /**
@@ -362,7 +375,7 @@ cc.Class({
     joinOverResponse(joinOverRsp) {
         if (joinOverRsp.status == 200) {
             this.labelLog('joinOverResponse: 关闭房间成功');
-        } else if (joinOverRsp.status == 400){
+        } else if (joinOverRsp.status == 400) {
             this.labelLog('joinOverResponse: 客户端参数错误 ');
         } else if (joinOverRsp.status == 403) {
             this.labelLog('joinOverResponse: 该用户不在房间 ');
@@ -378,7 +391,7 @@ cc.Class({
      * @param notifyInfo
      */
     joinOverNotify(notifyInfo) {
-        this.labelLog('joinOverNotify：用户'+notifyInfo.srcUserID+'关闭了房间，房间ID为：'+notifyInfo.roomID);
+        this.labelLog('joinOverNotify：用户' + notifyInfo.srcUserID + '关闭了房间，房间ID为：' + notifyInfo.roomID);
     },
 
     /**
@@ -398,7 +411,7 @@ cc.Class({
      * @param eventInfo
      */
     sendEventNotify(eventInfo) {
-        this.labelLog('sendEventNotify：用户'+eventInfo.srcUserID+'对你使出了一招'+eventInfo.cpProto);
+        this.labelLog('sendEventNotify：用户' + eventInfo.srcUserID + '对你使出了一招' + eventInfo.cpProto);
     },
 
     /**
@@ -407,7 +420,7 @@ cc.Class({
      */
     leaveRoomResponse(leaveRoomRsp) {
         if (leaveRoomRsp.status == 200) {
-            this.labelLog('leaveRoomResponse：离开房间成功，房间ID是'+leaveRoomRsp.roomID);
+            this.labelLog('leaveRoomResponse：离开房间成功，房间ID是' + leaveRoomRsp.roomID);
         } else if (leaveRoomRsp.status == 400) {
             this.labelLog('leaveRoomResponse：客户端参数错误,请检查参数');
         } else if (leaveRoomRsp.status == 404) {
@@ -422,7 +435,7 @@ cc.Class({
      * @param leaveRoomInfo
      */
     leaveRoomNotify(leaveRoomInfo) {
-        this.labelLog('leaveRoomNotify：'+leaveRoomInfo.userID+'离开房间，房间ID是'+leaveRoomInfo.roomID);
+        this.labelLog('leaveRoomNotify：' + leaveRoomInfo.userID + '离开房间，房间ID是' + leaveRoomInfo.roomID);
     },
 
     /**
@@ -443,8 +456,8 @@ cc.Class({
      * @param errorCode
      * @param errorMsg
      */
-    errorResponse(errorCode,errorMsg) {
-        this.labelLog('errorMsg:'+errorMsg+'errorCode:'+errorCode);
+    errorResponse(errorCode, errorMsg) {
+        this.labelLog('errorMsg:' + errorMsg + 'errorCode:' + errorCode);
     },
 
 
@@ -454,10 +467,10 @@ cc.Class({
      */
     labelLog: function (info) {
         this.logList.push(info);
-        this.totalCount  = this.logList.length;
-        this.content.height = this.totalCount*(this.itemTemplate.height + this.spacing) + this.spacing;
+        this.totalCount = this.logList.length;
+        this.content.height = this.totalCount * (this.itemTemplate.height + this.spacing) + this.spacing;
         this.content.removeAllChildren(true);
-        for(var i = 0; i < this.logList.length;i++) {
+        for (var i = 0; i < this.logList.length; i++) {
             var item = cc.instantiate(this.itemTemplate);
             this.content.addChild(item);
             item.setPosition(0, -item.height * (0.5 + i) - this.spacing * (i + 1));
@@ -467,31 +480,31 @@ cc.Class({
     },
 
 
-    engineCode:function (code,engineName) {
+    engineCode: function (code, engineName) {
         switch (code) {
             case 0:
-                this.labelLog(engineName+'调用成功');
+                this.labelLog(engineName + '调用成功');
                 break;
             case -1:
-                this.labelLog(engineName+'调用失败');
+                this.labelLog(engineName + '调用失败');
                 break;
             case -2:
-                this.labelLog('尚未初始化，请先初始化再进行'+engineName+'操作');
+                this.labelLog('尚未初始化，请先初始化再进行' + engineName + '操作');
                 break;
             case -3:
-                this.labelLog('正在初始化，请稍后进行'+engineName+'操作');
+                this.labelLog('正在初始化，请稍后进行' + engineName + '操作');
                 break;
             case -4:
-                this.labelLog('尚未登录，请先登录再进行'+engineName+'操作');
+                this.labelLog('尚未登录，请先登录再进行' + engineName + '操作');
                 break;
             case -5:
                 this.labelLog('已经登录，请勿重复登陆');
                 break;
             case -6:
-                this.labelLog('尚未加入房间，请稍后进行'+engineName+'操作');
+                this.labelLog('尚未加入房间，请稍后进行' + engineName + '操作');
                 break;
             case -7:
-                this.labelLog('正在创建或者进入房间,请稍后进行'+engineName+'操作');
+                this.labelLog('正在创建或者进入房间,请稍后进行' + engineName + '操作');
                 break;
             case -8:
                 this.labelLog('已经在房间中');
@@ -503,10 +516,10 @@ cc.Class({
                 this.labelLog('userProfile 过长，不能超过512个字符');
                 break;
             case -25:
-                this.labelLog(engineName+'channel 非法，请检查是否正确填写为 “Matchvs”');
+                this.labelLog(engineName + 'channel 非法，请检查是否正确填写为 “Matchvs”');
                 break;
             case -26:
-                this.labelLog(engineName+'：platform 非法，请检查是否正确填写为 “alpha” 或 “release”');
+                this.labelLog(engineName + '：platform 非法，请检查是否正确填写为 “alpha” 或 “release”');
                 break;
 
 
