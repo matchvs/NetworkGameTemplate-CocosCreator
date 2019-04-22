@@ -1,7 +1,7 @@
 var engine = require('../1/MatchvsEngine');
 var response = require("../1/MatchvsResponse");
 var msg = require("../1/MatvhsvsMessage");
-var examplesData = require('../1/ExamplesData');
+var GameData = require('../1/ExamplesData');
 
 cc.Class({
     extends: cc.Component,
@@ -19,6 +19,18 @@ cc.Class({
         clearLogButton:cc.Button,
         backHomeButton:cc.Button,
 
+        textTitle:cc.Label,
+        btnClear:cc.Button,
+        btnSAAS:cc.Button,
+
+        ebGameID:cc.EditBox,
+        ebAppKey:cc.EditBox,
+
+        //独立部署(PAAS)
+        ebEndPoint: cc.EditBox,
+        ebUserID:cc.EditBox,
+        ebToken:cc.EditBox,
+
         logListView:{
             default:null,
             type:cc.ScrollView
@@ -32,7 +44,8 @@ cc.Class({
         },
 
         userID:0,
-        token:''
+        token:'',
+        isPAAS:false,
 
     },
 
@@ -53,10 +66,73 @@ cc.Class({
         this.unInitButton.node.on('click',this.unInit,this);
         this.backHomeButton.node.on('click',this.backHome,this);
         this.clearLogButton.node.on('click',this.clearLog,this);
+        this.btnSAAS.node.on('click',function () {
+            cc.director.loadScene('paas');
+            GameData.isPAAS = !GameData.isPAAS ;
+            engine.prototype.logout();
+            engine.prototype.unInit();
+        },this);
+        this.btnClear.node.on('click',function () {
+            LocalStore_Clear();
+            this.labelLog('已删除UserID和Token的本地缓存');
+        },this);
 
-        this.labelLog('您需要打开两个以上的浏览器进行测试使用');
+        this.labelLog('您需要打开两个以上的浏览器模拟多人联网进行测试使用');
+
+        GameData.isPAAS = this.isPAAS;
+        if (GameData.isPAAS){
+            this.ebGameID.getComponent(cc.EditBox).string = " ";
+            this.ebAppKey.getComponent(cc.EditBox).string = " ";
+            this.ebUserID.getComponent(cc.EditBox).string = " ";
+            this.ebToken.getComponent(cc.EditBox).string = " ";
+            this.ebEndPoint.getComponent(cc.EditBox).string = " ";
+            this.getAndCheckPAASInfo();
+        }else{
+            this.ebGameID.getComponent(cc.EditBox).string = GameData.gameID;
+            this.ebAppKey.getComponent(cc.EditBox).string = GameData.appKey;
+        }
+        this.getAndCheckGameInfo();
+        this.textTitle.string =!GameData.isPAAS?"云托管模式":"自托管模式";
+        this.btnClear.active = GameData.isPAAS?false:true;
+        this.ebUserID.node.parent.active = !GameData.isPAAS?false:true;
+        this.ebToken.node.parent.active = !GameData.isPAAS?false:true;
+        this.ebEndPoint.node.parent.active = !GameData.isPAAS?false:true;
+        // this.btnSAAS.getComponent(cc.Label).string =GameData.isPAAS?"云托管模式":"自托管模式";
+        console.log("isPaas:", GameData.isPAAS);
+        console.log("GameData:", GameData);
     },
-
+    premiseInit(){
+        if (this.getAndCheckPAASInfo()) {
+            engine.prototype.premiseInit(GameData.host,GameData.gameID,GameData.appKey);
+        }
+    },
+    getAndCheckPAASInfo(){
+        var token = this.ebToken.getComponent(cc.EditBox).string;
+        var userID = this.ebUserID.getComponent(cc.EditBox).string;
+        var host = this.ebEndPoint.getComponent(cc.EditBox).string;
+        if (userID === '' || token === ''||host==='') {
+            this.labelLog("独立部署请输入userID,token以及服务地址");
+            this.labelLog("有疑问请点击右上角<自托管教程>按钮");
+            return false;
+        } else {
+            GameData.userID = userID;
+            GameData.token = token;
+            GameData.host = host;
+            // this.login(userID,token);
+            return true;
+        }
+    },
+    getAndCheckGameInfo(){
+        var gameID = this.ebGameID.getComponent(cc.EditBox).string;
+        var appKey = this.ebAppKey.getComponent(cc.EditBox).string;
+        if (gameID === '' || appKey === '') {
+            this.labelLog("gameID&&appKey不能为空");
+        } else {
+            GameData.gameID = gameID;
+            GameData.appKey = appKey;
+            // this.login(userID,token);
+        }
+    },
     /**
      * 注册对应的事件监听和把自己的原型传递进入，用于发送事件使用
      * @param self this
@@ -115,8 +191,12 @@ cc.Class({
      * 初始化
      */
     init() {
-        var result = engine.prototype.init(examplesData.channel,examplesData.platform,examplesData.gameID);
-        this.labelLog('初始化使用的gameID是:'+examplesData.gameID,'如需更换为自己SDK，修改NetworkFlow.js 114行即可');
+        if (GameData.isPAAS){
+            var result = engine.prototype.premiseInit(GameData.host,GameData.gameID,GameData.appKey);
+        }else{
+            var result = engine.prototype.init(GameData.channel,GameData.platform,GameData.gameID,GameData.appKey);
+        }
+        this.labelLog('初始化使用的gameID是:'+GameData.gameID,'如需更换为自己SDK，请修改ExamplesData.js文件');
         this.engineCode(result,'init');
     },
 
@@ -151,7 +231,7 @@ cc.Class({
      * 进入房间
      */
     joinRandomRoom() {
-        var result = engine.prototype.joinRandomRoom(examplesData.mxaNumer);
+        var result = engine.prototype.joinRandomRoom(GameData.mxaNumer);
         this.engineCode(result,'joinRandomRoom');
     },
 
@@ -223,7 +303,7 @@ cc.Class({
             'avatar:'+userInfo.avatar);
             this.userID = userInfo.id;
             this.token = userInfo.token;
-            examplesData.userName = userInfo.name;
+            GameData.userName = userInfo.name;
         } else {
             this.labelLog('registerUserResponse: 注册用户失败');
         }

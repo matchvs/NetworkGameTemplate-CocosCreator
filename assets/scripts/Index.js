@@ -20,7 +20,7 @@ cc.Class({
                 cc.director.loadScene('caseExperience');
                 break;
             case 'networkFlow':
-                cc.director.loadScene('networkFlow');
+                cc.director.loadScene('pass');
                 break;
             case 'exampleExplain':
                 cc.director.loadScene('exampleExplain');

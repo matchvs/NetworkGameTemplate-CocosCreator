@@ -1,8 +1,8 @@
 var mvs = require("Matchvs");
-var examplesData = require('ExamplesData');
+var gameData = require('ExamplesData');
 
 
-function MatchvsEngine() {
+function NetWorkEngine() {
 }
 
 /**
@@ -10,18 +10,29 @@ function MatchvsEngine() {
  * @param channel 渠道 例如Matchvs
  * @param platform 平台 例如'alpha ,release'
  * @param gameID 游戏ID
+ * @param {string} appKey
  */
-MatchvsEngine.prototype.init = function (channel, platform, gameID) {
-    var result = mvs.engine.init(mvs.response,channel,platform,gameID,examplesData.appKey,examplesData.gameVersion);
+NetWorkEngine.prototype.init = function (channel, platform, gameID,appKey) {
+    var result = mvs.engine.init(mvs.response,channel,platform,gameID,appKey,1);
     console.log("初始化result"+result);
     return result;
 }
-
+/**
+ * 独立部署使用的初始化接口
+ * @param {string} endPoint
+ * @param {number} gameID
+ * @param {string} appKey
+ */
+NetWorkEngine.prototype.premiseInit = function (endPoint, gameID,appKey) {
+    let result = mvs.engine.premiseInit(mvs.response, endPoint, gameID,appKey);
+    console.log("独立部署初始化result"+result);
+    return result;
+};
 /**
  * 注册
  * @returns {number|*}
  */
-MatchvsEngine.prototype.registerUser = function() {
+NetWorkEngine.prototype.registerUser = function() {
     var result = mvs.engine.registerUser();
     console.log("注册result"+result);
     return result;
@@ -33,7 +44,7 @@ MatchvsEngine.prototype.registerUser = function() {
  * @param token
  * @returns {DataView|*|number|void}
  */
-MatchvsEngine.prototype.login = function(userID,token){
+NetWorkEngine.prototype.login = function(userID,token){
     var DeviceID = 'matchvs';
     var result = mvs.engine.login(userID,token,DeviceID);
     console.log("登录result"+result);
@@ -45,8 +56,8 @@ MatchvsEngine.prototype.login = function(userID,token){
  * @param mxaNumer 房间最大人数
  * @returns {number}
  */
-MatchvsEngine.prototype.joinRandomRoom = function(mxaNumer){
-    var result = mvs.engine.joinRandomRoom(mxaNumer,examplesData.userName+'进入了房间');
+NetWorkEngine.prototype.joinRandomRoom = function(mxaNumer){
+    var result = mvs.engine.joinRandomRoom(mxaNumer,gameData.userName+'进入了房间');
     console.log("随机匹配result"+result);
     return result;
 };
@@ -55,7 +66,7 @@ MatchvsEngine.prototype.joinRandomRoom = function(mxaNumer){
  * 关闭房间
  * @returns {number}
  */
-MatchvsEngine.prototype.joinOver = function(){
+NetWorkEngine.prototype.joinOver = function(){
     var result = mvs.engine.joinOver("关闭房间");
     console.log("joinOver result"+result);
     return result;
@@ -66,7 +77,7 @@ MatchvsEngine.prototype.joinOver = function(){
  * @param msg
  * @returns {*}
  */
-MatchvsEngine.prototype.sendEvent = function (msg) {
+NetWorkEngine.prototype.sendEvent = function (msg) {
     var data =  mvs.engine.sendEvent(msg);
     // console.log("发送信息 result"+ data.result);
     return data.result;
@@ -76,14 +87,14 @@ MatchvsEngine.prototype.sendEvent = function (msg) {
  * 离开房间
  * @returns {*|void|number}
  */
-MatchvsEngine.prototype.leaveRoom = function () {
+NetWorkEngine.prototype.leaveRoom = function () {
     // var obj = {name:Glb.name,profile:'主动离开了房间'};
     var result = mvs.engine.leaveRoom('离开房间');
     // console.log(Glb.name+"主动离开房间result"+result);
     return result;
 };
 
-MatchvsEngine.prototype.logout = function () {
+NetWorkEngine.prototype.logout = function () {
     var result = mvs.engine.logout('注销');
     return result;
 };
@@ -93,7 +104,7 @@ MatchvsEngine.prototype.logout = function () {
  * 离开房间
  * @returns {*|void|number}
  */
-MatchvsEngine.prototype.unInit = function () {
+NetWorkEngine.prototype.unInit = function () {
     // var obj = {name:Glb.name,profile:'主动离开了房间'};
     var result = mvs.engine.uninit();
     // console.log(Glb.name+"主动离开房间result"+result);
@@ -101,4 +112,4 @@ MatchvsEngine.prototype.unInit = function () {
 };
 
 
-module.exports = MatchvsEngine;
+module.exports = NetWorkEngine;
