@@ -31,7 +31,7 @@ cc.Class({
         ebUserID: cc.EditBox,
         ebToken: cc.EditBox,
         textToturail: cc.Node,
-        passGroup:cc.Node,
+        passGroup: cc.Node,
 
         logListView: {
             default: null,
@@ -99,7 +99,7 @@ cc.Class({
         // this.ebEndPoint.node.parent.active = !GameData.isPAAS ? false : true;
         this.passGroup.active = GameData.isPAAS;
         console.log("isPaas:", GameData.isPAAS);
-        this.btnSAAS.getComponentInChildren(cc.Label).string =GameData.isPAAS?"云托管模式":"自托管模式";
+        this.btnSAAS.getComponentInChildren(cc.Label).string = GameData.isPAAS ? "云托管模式" : "自托管模式";
         console.log("GameData:", GameData);
     },
     premiseInit() {
@@ -194,15 +194,20 @@ cc.Class({
      * 初始化
      */
     init() {
+
         var result;
         if (GameData.isPAAS) {
-            if (this.getAndCheckPAASInfo()) {
-                 result = engine.prototype.premiseInit(GameData.host, GameData.gameID, GameData.appKey);
-            }else{
-               return;
+            if (this.getAndCheckPAASInfo() && this.getAndCheckGameInfo()) {
+                result = engine.prototype.premiseInit(GameData.host, GameData.gameID, GameData.appKey);
+            } else {
+                return;
             }
         } else {
-             result = engine.prototype.init(GameData.channel, GameData.platform, GameData.gameID, GameData.appKey);
+            if (this.getAndCheckGameInfo()) {
+                result = engine.prototype.init(GameData.channel, GameData.platform, GameData.gameID, GameData.appKey);
+            } else {
+                return;
+            }
         }
         this.labelLog('初始化使用的gameID是:' + GameData.gameID, '如需更换为自己SDK，请修改ExamplesData.js文件');
         this.engineCode(result, 'init');
