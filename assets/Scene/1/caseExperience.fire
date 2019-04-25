@@ -41,8 +41,8 @@
     },
     "_scale": {
       "__type__": "cc.Vec3",
-      "x": 0.6532094331062281,
-      "y": 0.6532094331062281,
+      "x": 0.601708984375,
+      "y": 0.601708984375,
       "z": 1
     },
     "_quat": {
@@ -52,7 +52,6 @@
       "z": 0,
       "w": 1
     },
-    "_zIndex": 0,
     "groupIndex": 0,
     "autoReleaseAssets": false,
     "_id": "e246beed-18d2-420f-a7c8-485dec26d303"
@@ -136,7 +135,6 @@
     },
     "_skewX": 0,
     "_skewY": 0,
-    "_zIndex": 0,
     "groupIndex": 0,
     "_id": "07Z6LDFJNKaZfbTvaV1H9f"
   },
@@ -197,7 +195,6 @@
     },
     "_skewX": 0,
     "_skewY": 0,
-    "_zIndex": 0,
     "groupIndex": 0,
     "_id": "c3zr8JIs1CXIfj5FhAWUFv"
   },
@@ -283,7 +280,6 @@
     },
     "_skewX": 0,
     "_skewY": 0,
-    "_zIndex": 0,
     "groupIndex": 0,
     "_id": "91GVYB5ihGsKVgSY314a2R"
   },
@@ -295,8 +291,6 @@
       "__id__": 5
     },
     "_enabled": true,
-    "_srcBlendFactor": 770,
-    "_dstBlendFactor": 771,
     "_spriteFrame": {
       "__uuid__": "9bbda31e-ad49-43c9-aaf2-f7d9896bac69"
     },
@@ -313,6 +307,8 @@
     "_isTrimmedMode": true,
     "_state": 0,
     "_atlas": null,
+    "_srcBlendFactor": 770,
+    "_dstBlendFactor": 771,
     "_id": "4ap6C8nD9I/JG1zEg622WT"
   },
   {
@@ -405,7 +401,6 @@
     },
     "_skewX": 0,
     "_skewY": 0,
-    "_zIndex": 0,
     "groupIndex": 0,
     "_id": "45x4WsbCxDJIAbCMRNiKis"
   },
@@ -486,7 +481,6 @@
     },
     "_skewX": 0,
     "_skewY": 0,
-    "_zIndex": 0,
     "groupIndex": 0,
     "_id": "d07Z1IarxBHYydIvQt3RAA"
   },
@@ -547,7 +541,6 @@
     },
     "_skewX": 0,
     "_skewY": 0,
-    "_zIndex": 0,
     "groupIndex": 0,
     "_id": "4a3Ejyw2dGu5aaqHlKTCgr"
   },
@@ -559,8 +552,6 @@
       "__id__": 11
     },
     "_enabled": true,
-    "_srcBlendFactor": 1,
-    "_dstBlendFactor": 771,
     "_useOriginalSize": false,
     "_string": "返回首页",
     "_N$string": "返回首页",
@@ -575,6 +566,7 @@
     "_N$verticalAlign": 1,
     "_N$fontFamily": "Arial",
     "_N$overflow": 1,
+    "_N$cacheMode": 0,
     "_id": "f5/jlfeq5AQaKlVAkkSNeR"
   },
   {
@@ -585,8 +577,6 @@
       "__id__": 10
     },
     "_enabled": true,
-    "_srcBlendFactor": 770,
-    "_dstBlendFactor": 771,
     "_spriteFrame": {
       "__uuid__": "f0048c10-f03e-4c97-b9d3-3506e1d58952"
     },
@@ -603,6 +593,8 @@
     "_isTrimmedMode": true,
     "_state": 0,
     "_atlas": null,
+    "_srcBlendFactor": 770,
+    "_dstBlendFactor": 771,
     "_id": "b2NGh01gxKSYi/Cg7RRPrd"
   },
   {
@@ -742,7 +734,6 @@
     },
     "_skewX": 0,
     "_skewY": 0,
-    "_zIndex": 0,
     "groupIndex": 0,
     "_id": "180Egbjo1DuqxYGG02O1AB"
   },
@@ -754,8 +745,6 @@
       "__id__": 15
     },
     "_enabled": true,
-    "_srcBlendFactor": 1,
-    "_dstBlendFactor": 771,
     "_useOriginalSize": false,
     "_string": "http://www.matchvs.com/serviceCourse",
     "_N$string": "http://www.matchvs.com/serviceCourse",
@@ -770,6 +759,7 @@
     "_N$verticalAlign": 1,
     "_N$fontFamily": "Arial",
     "_N$overflow": 0,
+    "_N$cacheMode": 0,
     "_id": "3eD4pyFg5JAobtds6bBrAf"
   },
   {
@@ -836,7 +826,6 @@
     },
     "_skewX": 0,
     "_skewY": 0,
-    "_zIndex": 0,
     "groupIndex": 0,
     "_id": "6aopGIAUhC1LQ8VDf7jLDO"
   },
@@ -897,7 +886,6 @@
     },
     "_skewX": 0,
     "_skewY": 0,
-    "_zIndex": 0,
     "groupIndex": 0,
     "_id": "e9rj2knINJCbhaiSA2j5fW"
   },
@@ -909,11 +897,9 @@
       "__id__": 18
     },
     "_enabled": true,
-    "_srcBlendFactor": 1,
-    "_dstBlendFactor": 771,
     "_useOriginalSize": false,
-    "_string": "以外部浏览器中打开",
-    "_N$string": "以外部浏览器中打开",
+    "_string": "以外部浏览器打开",
+    "_N$string": "以外部浏览器打开",
     "_fontSize": 20,
     "_lineHeight": 40,
     "_enableWrapText": false,
@@ -925,6 +911,7 @@
     "_N$verticalAlign": 1,
     "_N$fontFamily": "Arial",
     "_N$overflow": 1,
+    "_N$cacheMode": 0,
     "_id": "51S0lBRydCPKmHHWct37Sm"
   },
   {
@@ -935,8 +922,6 @@
       "__id__": 17
     },
     "_enabled": true,
-    "_srcBlendFactor": 770,
-    "_dstBlendFactor": 771,
     "_spriteFrame": {
       "__uuid__": "f0048c10-f03e-4c97-b9d3-3506e1d58952"
     },
@@ -953,6 +938,8 @@
     "_isTrimmedMode": true,
     "_state": 0,
     "_atlas": null,
+    "_srcBlendFactor": 770,
+    "_dstBlendFactor": 771,
     "_id": "59Gz7soihGe5ea4k3pvgNV"
   },
   {

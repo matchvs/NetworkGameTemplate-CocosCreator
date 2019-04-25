@@ -3,13 +3,15 @@ cc.Class({
 
     properties: {
         web:cc.WebView,
-        back:cc.Button
+        back:cc.Button,
+        btnOpenWithBrowser:cc.Button,
     },
 
 
     onLoad () {
         this.back.node.on('click',this.onBack,this);
-        this.web.node.on('loaded', this.callback, this)
+        this.web.node.on('loaded', this.callback, this);
+        this.btnOpenWithBrowser.node.on('click',this.openWithBrowser,this);
     },
 
 
@@ -24,6 +26,10 @@ cc.Class({
         // console.log(JSON.stringify(webview));
         //do whatever you want with webview
         //另外，注意这种方式注册的事件，也无法传递 customEventData
+    },
+    openWithBrowser(){
+        console.log("open ",this.web.url);
+        window.open(this.web.url);
     },
     // start () {},
 
