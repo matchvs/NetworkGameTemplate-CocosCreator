@@ -1,5 +1,6 @@
 var mvs = require("Matchvs");
 var msg = require("MatvhsvsMessage");
+
 function MatchvsResponse() {
 
 }
@@ -60,7 +61,7 @@ MatchvsResponse.prototype.loginResponse = function (MsLoginRsp) {
  * @param roomInfo
  */
 MatchvsResponse.prototype.joinRoomResponse = function (status, userInfoList, roomInfo) {
-    this.context.node.emit(msg.MATCHVS_JOIN_ROOM_RSP,status,userInfoList,roomInfo);
+    this.context.node.emit(msg.MATCHVS_JOIN_ROOM_RSP, status, userInfoList, roomInfo);
 };
 
 /**
@@ -68,8 +69,8 @@ MatchvsResponse.prototype.joinRoomResponse = function (status, userInfoList, roo
  * @param roomUserInfo
  */
 MatchvsResponse.prototype.joinRoomNotify = function (roomUserInfo) {
-    console.log(roomUserInfo.userID+"加入了房间");
-    this.context.node.emit(msg.MATCHVS_JOIN_ROOM_NOTIFY,roomUserInfo);
+    console.log(roomUserInfo.userID + "加入了房间");
+    this.context.node.emit(msg.MATCHVS_JOIN_ROOM_NOTIFY, roomUserInfo);
 };
 
 /**
@@ -77,7 +78,7 @@ MatchvsResponse.prototype.joinRoomNotify = function (roomUserInfo) {
  * @param rep
  */
 MatchvsResponse.prototype.joinOverResponse = function (joinOverRsp) {
-    this.context.node.emit(msg.MATCHVS_JOIN_OVER_RSP,joinOverRsp);
+    this.context.node.emit(msg.MATCHVS_JOIN_OVER_RSP, joinOverRsp);
 };
 
 /**
@@ -85,7 +86,7 @@ MatchvsResponse.prototype.joinOverResponse = function (joinOverRsp) {
  * @param notify
  */
 MatchvsResponse.prototype.joinOverNotify = function (notify) {
-    this.context.node.emit(msg.MATCHVS_JOIN_OVER_NOTIFY,notify);
+    this.context.node.emit(msg.MATCHVS_JOIN_OVER_NOTIFY, notify);
 };
 
 /**
@@ -93,7 +94,7 @@ MatchvsResponse.prototype.joinOverNotify = function (notify) {
  * @param sendEventRsp
  */
 MatchvsResponse.prototype.sendEventResponse = function (sendEventRsp) {
-    this.context.node.emit(msg.MATCHVS_SEND_EVENT_RSP,sendEventRsp);
+    this.context.node.emit(msg.MATCHVS_SEND_EVENT_RSP, sendEventRsp);
 };
 
 /**
@@ -109,7 +110,7 @@ MatchvsResponse.prototype.sendEventNotify = function (eventInfo) {
  * @param leaveRoomRsp
  */
 MatchvsResponse.prototype.leaveRoomResponse = function (leaveRoomRsp) {
-    this.context.node.emit(msg.MATCHVS_LEAVE_ROOM,leaveRoomRsp);
+    this.context.node.emit(msg.MATCHVS_LEAVE_ROOM, leaveRoomRsp);
 };
 
 /**
@@ -117,16 +118,17 @@ MatchvsResponse.prototype.leaveRoomResponse = function (leaveRoomRsp) {
  * @param leaveRoomInfo
  */
 MatchvsResponse.prototype.leaveRoomNotify = function (leaveRoomInfo) {
-    this.context.node.emit(msg.MATCHVS_LEAVE_ROOM_NOTIFY,leaveRoomInfo);
+    this.context.node.emit(msg.MATCHVS_LEAVE_ROOM_NOTIFY, leaveRoomInfo);
 };
 
 /**
  * 错误回调
  * @param error
  */
-MatchvsResponse.prototype.errorResponse = function (errorCode,errorMsg) {
-    console.log("发生错误了！！！");
-    this.context.node.emit(msg.MATCHVS_ERROE_MSG, errorCode,errorMsg);
+MatchvsResponse.prototype.errorResponse = function (errorCode, errorMsg) {
+    if (errorCode > 1001) {
+        this.context.node.emit(msg.MATCHVS_ERROE_MSG, errorCode, errorMsg);
+    }
 };
 
 

@@ -231,7 +231,7 @@ cc.Class({
     login() {
         if (this.getAndCheckGameInfo()) {
             var result = engine.prototype.login(GameData.userID, GameData.token);
-            this.labelLog('登录的账号userID是:', GameData.userID);
+            this.labelLog('登录的账号userID是:' + GameData.userID);
             if (result == -6) {
                 this.labelLog('已登录，请勿重新登录');
             } else if (result === -26) {
