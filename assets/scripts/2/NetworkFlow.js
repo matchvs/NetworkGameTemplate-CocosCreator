@@ -2,7 +2,7 @@ var engine = require('../1/MatchvsEngine');
 var response = require("../1/MatchvsResponse");
 var msg = require("../1/MatvhsvsMessage");
 var GameData = require('../1/ExamplesData');
-
+var timer;
 cc.Class({
     extends: cc.Component,
 
@@ -101,6 +101,14 @@ cc.Class({
         console.log("isPaas:", GameData.isPAAS);
         this.btnSAAS.getComponentInChildren(cc.Label).string = GameData.isPAAS ? "云托管模式" : "自托管模式";
         console.log("GameData:", GameData);
+
+        if(typeof BK != "undefined" ||typeof FBInstant != "undefined"){
+            timer= setInterval(function () {
+                this.labelLog('timer:' + new Date());
+            }.bind(this),1000);
+        }
+
+
     },
     premiseInit() {
         if (this.getAndCheckPAASInfo()) {
@@ -533,6 +541,7 @@ cc.Class({
 
     onDestroy() {
         this.removeEvent();
+        timer && clearInterval(timer);
     }
     // start () {},
     // update (dt) {},
