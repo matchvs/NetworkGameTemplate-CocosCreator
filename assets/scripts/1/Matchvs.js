@@ -21,7 +21,7 @@ try{
         MVS.SetWss&&MVS.SetWss(true);
         console.log("use wss");
     }
-    MatchvsLog.openLog(true);
+    // MatchvsLog.openLog(true);
     console.log("load matchvs.all.js success");
 } catch(error){
     console.error("try load matchvs JS fail,"+error.message);
