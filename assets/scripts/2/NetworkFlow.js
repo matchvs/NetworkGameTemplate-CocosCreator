@@ -102,13 +102,6 @@ cc.Class({
         this.btnSAAS.getComponentInChildren(cc.Label).string = GameData.isPAAS ? "云托管模式" : "自托管模式";
         console.log("GameData:", GameData);
 
-        if(typeof BK != "undefined" ||typeof FBInstant != "undefined"){
-            timer= setInterval(function () {
-                this.labelLog('timer:' + new Date());
-            }.bind(this),1000);
-        }
-
-
     },
     premiseInit() {
         if (this.getAndCheckPAASInfo()) {
